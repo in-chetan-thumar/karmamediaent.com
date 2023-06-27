@@ -55,6 +55,15 @@ class Movie extends Model
         }
     }
 
+    public function getReleaseDateFrontFormattedAttribute()
+    {
+        if(!empty($this->release_date)){
+            return Carbon::parse($this->release_date)->format('d F Y');
+        } else {
+            return '';
+        }
+    }
+
     public function getLogoUrlAttribute()
     {
         return config('constants.MOVIE_DOC_URL') . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . $this->logo;

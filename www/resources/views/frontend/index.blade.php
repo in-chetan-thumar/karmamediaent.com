@@ -3,83 +3,62 @@
     Karma Media | Home
 @endsection
 
+@section('css')
+<style>
+    .img-fluid{
+        height: 120px !important ;
+        width: 120px !important ;
+    }
+
+    .watermark-container {
+    position: relative;
+    display: inline-block;
+}
+
+.watermark {
+    position: absolute;
+    top: 70%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    font-family: 'Oswald';
+    text-transform: uppercase;
+    font-size: 3vw; /* Responsive font size based on viewport width */
+    color: rgb(255, 255, 255);
+    pointer-events: none;
+    line-height: 1;
+}
+
+
+
+</style>
+@endsection
 @section('section')
     <!-- BEGIN .content-wrapper -->
     <div class="radiusdiv">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active" data-interval="300">
-                    <a href="http://www.karmamediaent.com/movie/madaari">
-                        <img src="https://www.karmamediaent.com/storage/app/uploads/public/5e0/055/bc2/5e0055bc261d2485441445.png"
-                            alt="Banner Image">
-                    </a>
-                </div>
-                <div class="carousel-item " data-interval="300">
-                    <a href="http://www.karmamediaent.com/movie/aligarh">
-                        <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/ba9/fbe/5ddba9fbeb5e6629591362.png"
-                            alt="Banner Image">
-                    </a>
-                </div>
-                <div class="carousel-item " data-interval="300">
-                    <a href="http://www.karmamediaent.com/movie/Judgementall-Hai-Kya">
-                        <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/baa/24b/5ddbaa24bb6f3432769768.png"
-                            alt="Banner Image">
-                    </a>
-                </div>
-                <div class="carousel-item " data-interval="300">
-                    <a href="http://www.karmamediaent.com/movie/tanu-weds-manu">
-                        <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/baa/366/5ddbaa366ad66517380672.png"
-                            alt="Banner Image">
-                    </a>
-                </div>
-                <div class="carousel-item " data-interval="300">
-                    <a href="javascript:;">
-                        <img src="https://www.karmamediaent.com/storage/app/uploads/public/61f/3c9/e36/61f3c9e362cf7586627515.png"
-                            alt="Banner Image">
-                    </a>
-                </div>
-                <div class="carousel-item " data-interval="300">
-                    <a href="javascript:;">
-                        <img src="https://www.karmamediaent.com/storage/app/uploads/public/61f/3c3/57f/61f3c357f189e898926343.png"
-                            alt="Banner Image">
-                    </a>
-                </div>
+                @foreach ($movies as $data)
+                <div class="carousel-item @if ($movies->first() == $data) active @endif watermark-container" data-interval="300">
+                    <div class="watermark">{{ $data->title }} <br> {{ $data->release_date_formatted }} <br> <p style="font-size: 1vw ; text-transform:none">Directed by:{{ $data->directed_by }}</p></div>
+                        <a
+                            href="{{ $data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details', $data->slug) }}">
+                            <img src="/{{ $data->poster_landscape_url }}" alt="Banner Image">
+                        </a>
+                    </div>
+                @endforeach
             </div>
             <div class="carousel-indicators">
-                <div class="item active" data-slide-to="0">
-                    <!-- <img src="https://www.karmamediaent.com/storage/app/uploads/public/5e0/055/bc2/thumb_284_120_120_0_0_crop.png" class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="0"/> -->
-                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/5e0/055/bfa/5e0055bfac5ed422023119.jpg"
-                        class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="0" />
-                </div>
-                <div class="item " data-slide-to="1">
-                    <!-- <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/ba9/fbe/thumb_99_120_120_0_0_crop.png" class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="1"/> -->
-                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/e53/ae3/5dde53ae39193029716046.jpg"
-                        class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="1" />
-                </div>
-                <div class="item " data-slide-to="2">
-                    <!-- <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/baa/24b/thumb_101_120_120_0_0_crop.png" class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="2"/> -->
-                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/e53/c69/5dde53c69d7ff974365516.jpg"
-                        class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="2" />
-                </div>
-                <div class="item " data-slide-to="3">
-                    <!-- <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/baa/366/thumb_102_120_120_0_0_crop.png" class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="3"/> -->
-                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/5dd/e53/d59/5dde53d59cacb011880578.jpg"
-                        class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="3" />
-                </div>
-                <div class="item " data-slide-to="4">
-                    <!-- <img src="https://www.karmamediaent.com/storage/app/uploads/public/61f/3c9/e36/thumb_343_120_120_0_0_crop.png" class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="4"/> -->
-                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/5de/b66/aa1/5deb66aa1f1fc106353870.jpg"
-                        class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="4" />
-                </div>
-                <div class="item " data-slide-to="5">
-                    <!-- <img src="https://www.karmamediaent.com/storage/app/uploads/public/61f/3c3/57f/thumb_342_120_120_0_0_crop.png" class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="5"/> -->
-                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/61f/3ce/58c/61f3ce58cf665586385026.png"
-                        class="img-fluid" data-target="#carouselExampleIndicators" data-slide-to="5" />
-                </div>
+                @foreach ($movies as $key => $data)
+                    <div class="item active watermark-container" data-slide-to="{{ $key }}">
+                        <img src="/{{ $data->poster_potrait_url }}" class="img-fluid"
+                            data-target="#carouselExampleIndicators" data-slide-to="{{ $key }}" />
+                    </div>
+                @endforeach
             </div>
+            
+            
         </div>
-        <div class="sliderimg"><img src="https://www.karmamediaent.com/themes/karma-media/assets/images/slider-bg.png"
-                alt="" /></div>
+        <div class="sliderimg"><img src="{{ asset('assets/frontend/images/slider-bg.png') }}" alt="" /></div>
     </div>
     <!-- home slider div end -->
 
@@ -96,12 +75,12 @@
                     <div class="upcomingright">
                         <div class="tabings">
                             <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a
-                                        class="nav-item nav-link active" id="nav-movies-tab" data-toggle="tab"
-                                        href="#nav-movies" role="tab" aria-controls="nav-movies"
-                                        aria-selected="true">Movies</a> <a class="nav-item nav-link"
-                                        id="nav-webseries-tab" data-toggle="tab" href="#nav-webseries" role="tab"
-                                        aria-controls="nav-webseries" aria-selected="false">Webseries</a> </div>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-item nav-link active"
+                                        id="nav-movies-tab" data-toggle="tab" href="#nav-movies" role="tab"
+                                        aria-controls="nav-movies" aria-selected="true">Movies</a> <a
+                                        class="nav-item nav-link" id="nav-webseries-tab" data-toggle="tab"
+                                        href="#nav-webseries" role="tab" aria-controls="nav-webseries"
+                                        aria-selected="false">Webseries</a> </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-movies" role="tabpanel"
@@ -109,37 +88,20 @@
                                     <div class="tumbeslider">
                                         <div class="flexslider-upcoming carousel">
                                             <ul class="slides">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/619/dd8/4e2/619dd84e219fa656953719.png" />
-                                                            <h2>Ladkykiller</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/61f/3bf/ba2/61f3bfba29bc6079790861.png" />
-                                                            <h2>Dedh Bhiga Zameen</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/629/73f/2f0/62973f2f06c57353467048.png" />
-                                                            <h2>Setu</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-
+                                                @if (isset($upcoming_movies) and !empty($upcoming_movies->first()))
+                                                    @foreach ($upcoming_movies as $data)
+                                                        <li>
+                                                            <a
+                                                                href="{{ $data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details', $data->slug) }}">
+                                                                <div class="upcominfo">
+                                                                    <img src="/{{ $data->poster_potrait_url }}" />
+                                                                    <h2>{{ $data->title }}</h2>
+                                                                    <p>Coming Soon</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
@@ -149,56 +111,21 @@
                                     <div class="tumbeslider">
                                         <div class="flexslider-upcoming carousel">
                                             <ul class="slides">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/634/563/728/634563728283c190605966.png" />
-                                                            <h2>Lootere</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.karmamediaent.com/webseries/coffee-king">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/634/d78/768/634d7876824c1079701268.png" />
-                                                            <h2>Coffee King</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.karmamediaent.com/webseries/tatas">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/634/d78/d32/634d78d327592924753697.png" />
-                                                            <h2>The Tatas</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/5df/782/6b4/5df7826b4d559100006005.jpg" />
-                                                            <h2>Mukbir</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <div class="upcominfo">
-                                                            <img
-                                                                src="https://www.karmamediaent.com/storage/app/uploads/public/5df/782/2e8/5df7822e83075791920609.jpg" />
-                                                            <h2>Suburban Tales</h2>
-                                                            <p>Coming Soon</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
+                                                @if (isset($webseries) and !empty($webseries->first()))
+                                                    @foreach ($webseries as $data)
+                                                        <li>
+                                                            <a
+                                                                href="{{ $data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.webseries.details', $data->slug) }}">
+                                                                <div class="upcominfo">
+                                                                    <img src="/{{ $data->poster_potrait_url }}" />
+                                                                    <h2>{{ $data->title }}</h2>
+                                                                    <p>Coming Soon</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+
                                             </ul>
                                         </div>
                                     </div>
@@ -224,41 +151,22 @@
                     </div>
                     <div class="col-lg-9 col-md-order-4">
                         <ul class="newslisting">
-                            <li class="animated fadeIn" data-wow-delay=".50s">
-                                <a target="_blank"
-                                    href="https://www.tellychakkar.com/movie/movie-news/tanu-weds-manu-producer-shailesh-r-singh-announces-his-20th-film-setu-220601">
-                                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/629/738/2c2/6297382c21bd6347354042.png"
-                                        alt="News">
-                                    <h2>&#039;Tanu Weds Manu&#039; producer Shailesh R. Singh announces his 20th
-                                        film &#039;Setu&#039;</h2>
+                            @if (isset($news) and !empty($news->first()))
+                                @foreach ($news as $data)
+                                    <li class="animated fadeIn" data-wow-delay=".50s">
+                                        <a target="_blank" href="{{ $data->link }}">
+                                            <img src="/{{ $data->photo_url }}" alt="News">
+                                            <h2>{{ $data->title }}</h2>
 
-                                    <span class="bluelink">Read More</span>
-                                </a>
-                            </li>
-                            <li class="animated fadeIn" data-wow-delay=".50s">
-                                <a target="_blank"
-                                    href="https://www.hindustantimes.com/entertainment/bollywood/shailesh-r-singh-announces-his-20th-film-setu-101654168575518.html">
-                                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/629/8c2/8c0/6298c28c03386147724696.png"
-                                        alt="News">
-                                    <h2>Shailesh R Singh announces his 20th film, Setu</h2>
-
-                                    <span class="bluelink">Read More</span>
-                                </a>
-                            </li>
-                            <li class="animated fadeIn" data-wow-delay=".50s">
-                                <a target="_blank"
-                                    href="https://www.indiaherald.com/Viral/Read/994504163/Biopic-On-The-Tata-Family">
-                                    <img src="https://www.karmamediaent.com/storage/app/uploads/public/62c/5ad/219/62c5ad2191e15406656893.png"
-                                        alt="News">
-                                    <h2>Biopic On ‘The Tata Family’</h2>
-
-                                    <span class="bluelink">Read More</span>
-                                </a>
-                            </li>
+                                            <span class="bluelink">Read More</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            @endif
 
                         </ul>
                         <div class="flclear"></div>
-                        <div class="float-right"><a href="https://www.karmamediaent.com/news" class="borderbtn">view
+                        <div class="float-right"><a href="{{ route('frontend.news') }}" class="borderbtn">view
                                 all</a></div>
                     </div>
                 </div>
@@ -269,13 +177,11 @@
     </div>
 
     @component('frontend.components.contact_us')
-        
     @endcomponent
     <!-- content div end -->
 
     <!-- footer div start -->
     @component('frontend.components.footer')
-        
     @endcomponent
     <!-- footer div end -->
 @endsection
@@ -352,7 +258,7 @@
             var marker = new google.maps.Marker({
                 position: latlong,
                 map: map,
-                icon: "https://www.karmamediaent.com/themes/karma-media/assets/images/location-logo.png"
+                icon: "{{asset('assets/frontend/images/location-logo.png')}}"
             });
 
             google.maps.event.addListener(marker, 'click', function() {

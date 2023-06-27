@@ -5,7 +5,7 @@
 
 @section('section')
     <!-- about big img div start -->
-    <div class="about_img"><img src="https://www.karmamediaent.com/themes/karma-media/assets/images/About us Banner.png"
+    <div class="about_img"><img src="{{asset('assets/frontend/images/about_us.png')}}"
             alt="" width="100%" /></div>
     <!-- about big img div end -->
 
@@ -59,7 +59,7 @@
                                     perspective of cinema-goers by backing some path-breaking movies in the Indian
                                     entertainment industry.</p>
                             </div>
-                            <img src="https://www.karmamediaent.com/themes/karma-media/assets/images/shailesh.png"
+                            <img src="{{asset('assets/frontend/images/shailesh.png')}}"
                                 alt=" " width="100%" />
                         </div>
                     </div>

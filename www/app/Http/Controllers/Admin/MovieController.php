@@ -323,6 +323,7 @@ class MovieController extends Controller
             $params['path'] = \Illuminate\Support\Facades\Request::fullUrl();
         } else {
             parse_str($previousUrl['query'], $params);
+            $params['type'] =  'MOVIE';
             $params['path'] =  url()->previous();
         }
 

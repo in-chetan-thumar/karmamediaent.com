@@ -5,13 +5,49 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class WebseriesController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request, $slug=''){
+
+        $params = $this->getParamsForFilter($request) ;
+        $page = $request->page ?? null;
+        $webseries = resolve('movie-repo')->activeItemObject($params);
+        $upcoming_webseries = $webseries->where('status','RELEASED') ;
+        $recent_webseries = $webseries->where('is_recent','Y')->take(4) ;
+        $params['status'] =  'RELEASED' ;
+        $params['is_recent'] =  'N' ;
+        $all_webseries = resolve('movie-repo')->filter($params);
         
-        $all_webseries = resolve('movie-repo')->filter($this->getParamsForFilter($request));
-        return view('frontend.project.webseries',compact('all_webseries'));
+        if (!empty($page)) {
+            $data = [
+                'view' => '',
+            ];
+            $data['current_page'] = $all_webseries->currentPage();
+            $data['last_page'] = $all_webseries->lastPage();
+            foreach ($all_webseries as $webseries) {
+                $data['view'] .= '<li class="animated fadeIn" data-wow-delay="1.25s">
+                <a href="' . ($webseries->is_clickable == 'N' ? 'javascript:void(0)' : '') . '">
+                    <img
+                        src="' . $webseries->poster_potrait_url . '" />
+                    <span class="moviename">' . $webseries->title . '</span>
+                </a>
+            </li>';
+            }
+            return response()->json($data);
+        }
+
+        if(Route::current()->getName() == 'frontend.webseries.details'){
+            if(!empty($slug)){
+                $webseries_details = resolve('movie-repo')->findBySlug($slug);
+            }
+            return view('frontend.project.webseries_details', compact('webseries_details','all_webseries'));
+        }
+        
+        return view('frontend.project.webseries', compact('upcoming_webseries','recent_webseries','all_webseries'));
+
+
     }
 
     public function getParamsForFilter(Request $request)

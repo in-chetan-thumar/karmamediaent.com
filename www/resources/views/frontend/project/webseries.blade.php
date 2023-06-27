@@ -28,56 +28,73 @@
                                     <li data-target="#carouselExampleIndicators" data-slide-to="4" class=""></li>
                                 </ol>
                                 <div class="carousel-inner" data-interval="300">
-                                    @if (isset($all_webseries) and !empty($all_webseries->first()))
-                                        @foreach ($all_webseries as $webseries)
-                                            <div class="carousel-item @if ($all_webseries->first() == $webseries) active @endif">
+                                    @if (isset($upcoming_webseries) and !empty($upcoming_webseries->first()))
+                                        @foreach ($upcoming_webseries as $webseries)
+                                            <div class="carousel-item @if ($upcoming_webseries->first() == $webseries) active @endif">
 
-                                                <a href="javascript:;">
+                                                <a href="{{ $webseries->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.webseries.details',$webseries->slug) }}">
                                                     <img class="d-block w-100" src="{{ $webseries->poster_landscape_url }}"
                                                         alt="Slider Image">
                                                 </a>
                                             </div>
                                         @endforeach
                                     @else
+                                     <h1> No data available</h1>
                                     @endif
-                                    {{-- <div class="carousel-item active">
-                                        <a href="javascript:;">
-                                            <img class="d-block w-100"
-                                                src="https://www.karmamediaent.com/storage/app/uploads/public/634/563/003/6345630037ec5507961118.png"
-                                                alt="Slider Image">
-                                        </a>
-                                    </div>
-                                    <div class="carousel-item ">
-                                        <a href="https://www.karmamediaent.com/webseries/coffee-king">
-                                            <img class="d-block w-100"
-                                                src="https://www.karmamediaent.com/storage/app/uploads/public/634/d78/6cd/634d786cdee07552858845.png"
-                                                alt="Slider Image">
-                                        </a>
-                                    </div>
-                                    <div class="carousel-item ">
-                                        <a href="https://www.karmamediaent.com/webseries/tatas">
-                                            <img class="d-block w-100"
-                                                src="https://www.karmamediaent.com/storage/app/uploads/public/634/d78/e0d/634d78e0d1bb9197788170.png"
-                                                alt="Slider Image">
-                                        </a>
-                                    </div>
-                                    <div class="carousel-item ">
-                                        <a href="javascript:;">
-                                            <img class="d-block w-100"
-                                                src="https://www.karmamediaent.com/storage/app/uploads/public/5df/783/08b/5df78308b41ed938625420.jpg"
-                                                alt="Slider Image">
-                                        </a>
-                                    </div>
-                                    <div class="carousel-item ">
-                                        <a href="javascript:;">
-                                            <img class="d-block w-100"
-                                                src="https://www.karmamediaent.com/storage/app/uploads/public/5df/782/29d/5df78229d7820023170189.jpg"
-                                                alt="Slider Image">
-                                        </a>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
+
+                        @if (!empty($recent_webseries->first()))
+                        <div class="recentdiv">
+                            <div class="heading">
+                                <h3>Recent</h3>
+                            </div>
+                            <div class="tworowdiv">
+                                <ul>
+                                    @foreach ($recent_webseries as $webseries)
+                                        <li class="animated flipInX" data-wow-delay=".50s">
+                                            <a
+                                                href="{{ $webseries->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.webseries.details',$webseries->slug) }}">
+                                                <img src="{{ $webseries->poster_landscape_url }}" />
+                                                <span class="moviename">{{ $webseries->title }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="flclear"></div>
+                            </div>
+                        </div>
+                    @endif
+
+
+
+                    {{-- @if (!empty($all_webseries->first()))
+                        <div class="released">
+                            <div class="heading">
+                                <h3>Released</h3>
+                            </div>
+                            <div class="fourrowdiv">
+                                <ul id="released_movies_block">
+
+                                    @foreach ($all_webseries as $webseries)
+                                        <li class="animated fadeIn" data-wow-delay="1.25s">
+                                            <a
+                                                href="{{ $webseries->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.webseries.details',$webseries->slug) }}">
+                                                <img src="{{ $webseries->poster_potrait_url }}" />
+                                                <span class="moviename">{{ $webseries->title }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="flclear"></div>
+                            </div>
+                            <div class="mt-4 text-center view_more_block">
+                                <a href="javascript:void(0);" class="blueborderbtn view_more" next-page="2">view
+                                    more</a>
+                            </div>
+                        </div>
+                    @endif --}}
 
 
                     </div>

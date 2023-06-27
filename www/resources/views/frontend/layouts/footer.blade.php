@@ -7,7 +7,7 @@
                             Makers</a></p>
                 </div>
                 <div class="copy_right">
-                    <p>Copyright &copy; 2021 Karma Media and Entertainment pvt ltd.</p>
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Karma Media and Entertainment pvt ltd.</p>
                 </div>
             </div>
         </div>

@@ -5,33 +5,48 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class MovieController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $slug='')
     {
+        $params = $this->getParamsForFilter($request) ;
         $page = $request->page ?? null;
-        $all_news = resolve('news-repo')->filter($this->getParamsForFilter($request));
+        $movies = resolve('movie-repo')->activeItemObject($params);
+        $upcoming_movies = $movies->where('status','UPCOMING') ;
+        $recent_movies = $movies->where('is_recent','Y')->take(4) ;
+        $params['status'] =  'RELEASED' ;
+        $params['is_recent'] =  'N' ;
+        $params['release_date'] =  'Y' ;
+        $all_movies = resolve('movie-repo')->filter($params);
         
-        // if (!empty($page)) {
-        //     $data = [
-        //         'view' => '',
-        //     ];
-        //     $data['current_page'] = $all_news->currentPage() ;
-        //     $data['last_page'] = $all_news->lastPage() ;
-        //     // dd($data);           
-        //      foreach ($all_news as $news) {
-        //         $data['view'] .= '<li>
-        //             <a target="_blank" href="' . $news->link . '">
-        //                 <img src="' . $news->photo_url . '" alt="News image" />
-        //                 <h2>' . $news->title . '</h2>
-        //                 <span class="bluelink">Read More</span>
-        //             </a>
-        //         </li>';
-        //     }
-        //     return response()->json($data);
-        // }
-        return view('frontend.news', compact('all_news'));
+        if (!empty($page)) {
+            $data = [
+                'view' => '',
+            ];
+            $data['current_page'] = $all_movies->currentPage();
+            $data['last_page'] = $all_movies->lastPage();
+            foreach ($all_movies as $movie) {
+                $data['view'] .= '<li class="animated fadeIn" data-wow-delay="1.25s">
+                <a href="' . ($movie->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details',$movie->slug)) . '">
+                    <img
+                        src="/' . $movie->poster_potrait_url . '" />
+                    <span class="moviename">' . $movie->title . '</span>
+                </a>
+            </li>';
+            }
+            return response()->json($data);
+        }
+
+        if(Route::current()->getName() == 'frontend.movie.details'){
+            if(!empty($slug)){
+                $movie = resolve('movie-repo')->findBySlug($slug);
+            }
+            return view('frontend.project.movie_details', compact('movie','all_movies'));
+        }
+        
+        return view('frontend.project.movie', compact('upcoming_movies','recent_movies','all_movies'));
     }
     
 
@@ -40,7 +55,9 @@ class MovieController extends Controller
         $previousUrl = parse_url(url()->previous());
         $params = [];
 
-        if (request()->routeIs('frontend.news') || !isset($previousUrl['query'])) {
+        $params['type'] =  'MOVIE';
+
+        if (request()->routeIs('frontend.movies') || !isset($previousUrl['query'])) {
             $params['query_str'] = $request->query_str ?? '';
             $params['month'] = $request->month ?? '';
             $params['year'] = $request->year ?? '';

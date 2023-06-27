@@ -19,7 +19,6 @@ class NewsController extends Controller
             ];
             $data['current_page'] = $all_news->currentPage() ;
             $data['last_page'] = $all_news->lastPage() ;
-            // dd($data);           
              foreach ($all_news as $news) {
                 $data['view'] .= '<li>
                     <a target="_blank" href="' . $news->link . '">

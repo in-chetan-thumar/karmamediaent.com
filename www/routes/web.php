@@ -23,8 +23,10 @@ Route::get('/about-us', [\App\Http\Controllers\Frontend\AboutController::class, 
 Route::get('/news/{page?}', [\App\Http\Controllers\Frontend\NewsController::class, 'index'])->name('frontend.news');
 Route::get('/news/load-more', [\App\Http\Controllers\Frontend\NewsController::class, 'loadMore'])->name('frontend.news.loadmore');
 Route::get('/contact-us', [\App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact');
-Route::get('/webseries', [\App\Http\Controllers\Frontend\WebseriesController::class, 'index'])->name('frontend.webseries');
-Route::get('/movies', [\App\Http\Controllers\Frontend\MovieController::class, 'index'])->name('frontend.movies');
+Route::get('/webseries/{page?}', [\App\Http\Controllers\Frontend\WebseriesController::class, 'index'])->name('frontend.webseries');
+Route::get('/webseries/details/{slug}', [\App\Http\Controllers\Frontend\WebseriesController::class, 'index'])->name('frontend.webseries.details');
+Route::get('/movies/{page?}', [\App\Http\Controllers\Frontend\MovieController::class, 'index'])->name('frontend.movies');
+Route::get('/movies/details/{slug}', [\App\Http\Controllers\Frontend\MovieController::class, 'index'])->name('frontend.movie.details');
 
 if(config('constants.MOBILE_OTP_LOGIN') || config('constants.EMAIL_OTP_LOGIN')){
     array_push($middleware,'twofactor');

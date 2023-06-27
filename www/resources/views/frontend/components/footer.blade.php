@@ -5,7 +5,7 @@
                 <ul class="homefooter">
                     <li>
                         <div class="media"> <img class="align-self-center mr-3"
-                                src="https://www.karmamediaent.com/themes/karma-media/assets/images/contact-image1.png"
+                                src="{{asset('assets/frontend/images/contact-image1.png')}}"
                                 alt="Contact Image">
                             <div class="media-body">
                                 <div class="font20">For business related queries email us on.</div>
@@ -16,7 +16,7 @@
                     </li>
                     <li>
                         <div class="media"> <img class="align-self-center mr-3"
-                                src="https://www.karmamediaent.com/themes/karma-media/assets/images/contact-image2.png"
+                                src="{{asset('assets/frontend/images/contact-image2.png')}}"
                                 alt="Contact Image">
                             <div class="media-body">
                                 <div class="font20">For content related queries email us on</div>
@@ -27,7 +27,7 @@
                     </li>
                     <li>
                         <div class="media"> <img class="align-self-center mr-3"
-                                src="https://www.karmamediaent.com/themes/karma-media/assets/images/contact-image-3.png"
+                                src="{{asset('assets/frontend/images/contact-image3.png')}}"
                                 alt="Contact Image">
                             <div class="media-body">
                                 <div class="font20">To apply for jobs, email us on </div>

@@ -14,9 +14,9 @@
 @section('section')
     <!-- home slider div start -->
     <div class="radiusdiv">
-        <div class="mainimg"><img src="https://www.karmamediaent.com/themes/karma-media/assets/images/news-big-img.jpg"
+        <div class="mainimg"><img src="{{asset('assets/frontend/images/news-big-img.jpg')}}"
                 alt="" /></div>
-        <div class="sliderimg"><img src="https://www.karmamediaent.com/themes/karma-media/assets/images/slider-bg.png"
+        <div class="sliderimg"><img src="{{asset('assets/frontend/images/slider-bg.png')}}"
                 alt="" />
         </div>
     </div>

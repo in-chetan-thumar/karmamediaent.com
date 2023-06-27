@@ -8,7 +8,7 @@
         <!-- main img div start -->
         <div class="radiusdiv zindex">
             <div class="mainimg"><img
-                    src="https://www.karmamediaent.com/themes/karma-media/assets/images/contact-us-big-img.png"
+                    src="{{asset('assets/frontend/images/contact-us-big-img.png')}}"
                     alt="Contact us Image" /></div>
         </div>
         <!-- main img div end -->
@@ -99,7 +99,7 @@
             var marker = new google.maps.Marker({
                 position: latlong,
                 map: map,
-                icon: "https://www.karmamediaent.com/themes/karma-media/assets/images/location-logo.png"
+                icon: "{{asset('assets/frontend/images/location-logo.png')}}"
             });
 
             google.maps.event.addListener(marker, 'click', function() {

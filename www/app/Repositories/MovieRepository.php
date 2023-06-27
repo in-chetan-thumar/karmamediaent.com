@@ -24,6 +24,13 @@ class MovieRepository
         return $this->model->findorFail($id);
     }
 
+    // Get data by slug
+    public function findBySlug($slug)
+    {
+        $this->model = new Movie() ;
+        return $this->model->where('slug',$slug)->first();
+    }
+
 
     // Create new recoard
     public function create($params)
@@ -58,6 +65,8 @@ class MovieRepository
 
     public function filter($params)
     {
+        $this->model = new Movie() ;
+        
         $params['return_type'] = $params['return_type'] ?? '';
 
         $this->model = $this->model->when(!empty($params['query_str']), function ($query) use ($params) {
@@ -69,10 +78,24 @@ class MovieRepository
             });
         });
         
-
-
         $this->model = $this->model->when(!empty($params['type']), function ($query) use ($params) {
             $query->where('type', $params['type']);
+        });
+
+        $this->model = $this->model->when(!empty($params['is_active']), function ($query) use ($params) {
+            $query->where('is_active', $params['is_active']);
+        });
+
+        $this->model = $this->model->when(!empty($params['is_recent']), function ($query) use ($params) {
+            $query->where('is_recent', $params['is_recent']);
+        });
+
+        $this->model = $this->model->when(!empty($params['release_date']), function ($query) use ($params) {
+            $query->whereNotNull('release_date');
+        });
+
+        $this->model = $this->model->when(!empty($params['status']), function ($query) use ($params) {
+            $query->where('status', $params['status']);
         });
 
         $this->model = $this->model->when(!empty($params['start_date'] && !empty($params['end_date'])), function ($q) use ($params) {
@@ -128,6 +151,7 @@ class MovieRepository
         $params['is_active'] = 'Y';
         $params['order_by'] = ['created_at' => 'DESC'];
         $params['return_type'] = 'object';
+
 
         return $this->filter($params);
     }
