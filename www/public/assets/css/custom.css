@@ -1,0 +1,31 @@
+.required{
+    color: red;
+}
+
+#preview-image{
+    max-height: 400px;  
+    max-width: 100%;
+}
+#preview-logo{
+    max-height: 300px;  
+    max-width: 100%;
+}
+#preview-poster-landscape{
+    max-height: 300px;  
+    width: 100%;
+}
+#preview-poster-potrait{
+    height: 300px;  
+    max-width: 50%;
+}
+@media (max-width:1140px) {
+    #offcanvasCreate{
+        width: 80% !important;
+    }
+}
+
+@media (max-width:720px) {
+    #offcanvasCreate{
+        width: 100% !important;
+    }
+}
