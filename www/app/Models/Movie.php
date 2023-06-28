@@ -38,6 +38,10 @@ class Movie extends Model
         'status',
         'is_recent',
         'is_clickable',
+        'is_banner',
+        'banner_order',
+        'banner_image',
+        'banner_thumbnail',
         'created_at',
         'created_by',
         'updated_at',
@@ -77,6 +81,16 @@ class Movie extends Model
     public function getPosterPotraitUrlAttribute()
     {
         return config('constants.MOVIE_DOC_URL') . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . $this->poster_potrait;
+    }
+
+    public function getBannerImageUrlAttribute()
+    {
+        return config('constants.MOVIE_DOC_URL') . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . $this->banner_image;
+    }
+
+    public function getBannerThumbnailUrlAttribute()
+    {
+        return config('constants.MOVIE_DOC_URL') . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . $this->banner_thumbnail;
     }
     public function getGalleryUrlAttribute()
     {

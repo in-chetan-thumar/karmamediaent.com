@@ -10,7 +10,7 @@
     max-height: 300px;  
     max-width: 100%;
 }
-#preview-poster-landscape{
+#preview-poster-landscape, #preview-banner-image{
     max-height: 300px;  
     width: 100%;
 }

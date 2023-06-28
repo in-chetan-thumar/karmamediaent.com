@@ -80,6 +80,24 @@ class MovieController extends Controller
                 }
                 $params['poster_potrait'] = basename($request->file('poster_potrait')->store($fileDir));
             }
+            if ($request->hasFile('banner_image')) {
+
+                $fileDir = config('constants.MOVIE_DOC_PATH') . DIRECTORY_SEPARATOR . $movie->id;
+
+                if (!File::exists($fileDir)) {
+                    Storage::makeDirectory($fileDir, 0777);
+                }
+                $params['banner_image'] = basename($request->file('banner_image')->store($fileDir));
+            }
+            if ($request->hasFile('banner_thumbnail')) {
+
+                $fileDir = config('constants.MOVIE_DOC_PATH') . DIRECTORY_SEPARATOR . $movie->id;
+
+                if (!File::exists($fileDir)) {
+                    Storage::makeDirectory($fileDir, 0777);
+                }
+                $params['banner_thumbnail'] = basename($request->file('banner_thumbnail')->store($fileDir));
+            }
             if ($request->hasFile('images')) {
 
                 $file_names = [] ;
@@ -106,6 +124,11 @@ class MovieController extends Controller
                 $params['is_recent'] = 'Y';
             } else {
                 $params['is_recent'] = 'N';
+            }
+            if ($request->has('is_banner')) {
+                $params['is_banner'] = 'Y';
+            } else {
+                $params['is_banner'] = 'N';
             }
             $movie = resolve('movie-repo')->update($params, $movie->id);
 
@@ -198,6 +221,24 @@ class MovieController extends Controller
                 }
                 $params['poster_potrait'] = basename($request->file('poster_potrait')->store($fileDir));
             }
+            if ($request->hasFile('banner_image')) {
+
+                $fileDir = config('constants.MOVIE_DOC_PATH') . DIRECTORY_SEPARATOR . $id;
+
+                if (!File::exists($fileDir)) {
+                    Storage::makeDirectory($fileDir, 0777);
+                }
+                $params['banner_image'] = basename($request->file('banner_image')->store($fileDir));
+            }
+            if ($request->hasFile('banner_thumbnail')) {
+
+                $fileDir = config('constants.MOVIE_DOC_PATH') . DIRECTORY_SEPARATOR . $id;
+
+                if (!File::exists($fileDir)) {
+                    Storage::makeDirectory($fileDir, 0777);
+                }
+                $params['banner_thumbnail'] = basename($request->file('banner_thumbnail')->store($fileDir));
+            }
             if ($request->hasFile('images')) {
 
                 $file_names = [] ;
@@ -228,6 +269,11 @@ class MovieController extends Controller
                 $params['is_recent'] = 'Y';
             } else {
                 $params['is_recent'] = 'N';
+            }
+            if ($request->has('is_banner')) {
+                $params['is_banner'] = 'Y';
+            } else {
+                $params['is_banner'] = 'N';
             }
             $movie_updated = $movie->update($params);
 

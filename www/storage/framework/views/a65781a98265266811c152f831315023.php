@@ -4,53 +4,26 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('css'); ?>
-<style>
-    .img-fluid{
-        height: 120px !important ;
-        width: 120px !important ;
-    }
 
-    .watermark-container {
-    position: relative;
-    display: inline-block;
-}
-
-.watermark {
-    position: absolute;
-    top: 70%;
-    left: 15%;
-    transform: translate(-50%, -50%);
-    font-family: 'Oswald';
-    text-transform: uppercase;
-    font-size: 3vw; /* Responsive font size based on viewport width */
-    color: rgb(255, 255, 255);
-    pointer-events: none;
-    line-height: 1;
-}
-
-
-
-</style>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('section'); ?>
     <!-- BEGIN .content-wrapper -->
     <div class="radiusdiv">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <?php $__currentLoopData = $movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="carousel-item <?php if($movies->first() == $data): ?> active <?php endif; ?> watermark-container" data-interval="300">
-                    <div class="watermark"><?php echo e($data->title); ?> <br> <?php echo e($data->release_date_formatted); ?> <br> <p style="font-size: 1vw ; text-transform:none">Directed by:<?php echo e($data->directed_by); ?></p></div>
+                <?php $__currentLoopData = $banner_movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="carousel-item <?php if($banner_movies->first() == $data): ?> active <?php endif; ?>" data-interval="300">
                         <a
                             href="<?php echo e($data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details', $data->slug)); ?>">
-                            <img src="/<?php echo e($data->poster_landscape_url); ?>" alt="Banner Image">
+                            <img src="/<?php echo e($data->banner_image_url); ?>" alt="Banner Image">
                         </a>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
             <div class="carousel-indicators">
-                <?php $__currentLoopData = $movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="item active watermark-container" data-slide-to="<?php echo e($key); ?>">
-                        <img src="/<?php echo e($data->poster_potrait_url); ?>" class="img-fluid"
+                <?php $__currentLoopData = $banner_movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="item active" data-slide-to="<?php echo e($key); ?>">
+                        <img src="/<?php echo e($data->banner_thumbnail_url); ?>" class="img-fluid"
                             data-target="#carouselExampleIndicators" data-slide-to="<?php echo e($key); ?>" />
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

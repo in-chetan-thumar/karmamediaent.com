@@ -346,6 +346,65 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <div class="form-group">
+                        {{ Form::bsCheckBox('', 'is_banner', isset($movie) ? ($movie->is_banner == 'Y' ? 1 : 0) : 0, '', ['class' => ''], ['1' => 'Is banner image'], false) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 banner_order">
+                <div class="mb-3">
+                    <div class="form-group">
+                        {{ Form::bsText('Banner order', 'banner_order', isset($movie) ? $movie->banner_order : old('banner_order'), '', ['class' => ' only-number-allow', 'id' => 'banner_order'], [], true) }}
+                        @error('banner_order')
+                            <span style="color:red">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 banner_image">
+                <div class="mb-3">
+                    <div class="form-group">
+                        {{ Form::bsFile('Banner image', 'banner_image', '', '', ['class' => '', 'id' => 'banner_image'], [], isset($movie) ? false : true) }}
+                        <div id="banner-image-preview">
+                            @if (isset($movie))
+                                <img src="/{{ $movie->banner_image_url }}" alt="" id="preview-banner-image"
+                                    class="mt-1">
+                                    <input type="hidden" name="banner_image_file" value="{{$movie->banner_image}}">
+                            @endif
+                        </div>
+
+                        @error('banner_image')
+                            <span style="color:red">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 banner_thumbnail">
+                <div class="mb-3">
+                    <div class="form-group">
+                        {{ Form::bsFile('Banner thumbnail', 'banner_thumbnail', '', '', ['class' => '', 'id' => 'banner_thumbnail'], [], isset($movie) ? false : true) }}
+                        <div id="banner-thumbnail-preview">
+                            @if (isset($movie))
+                                <img src="/{{ $movie->banner_thumbnail_url }}" alt=""
+                                    id="preview-banner-thumbnail" class="mt-1">
+                                    <input type="hidden" name="banner_thumbnail_file" value="{{$movie->banner_thumbnail}}">
+                            @endif
+                        </div>
+
+                        @error('banner_thumbnail')
+                            <span style="color:red">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -394,16 +453,21 @@
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $('#make-info').find(':input[type=submit]').prop('disabled', false);
                     $('#status').hide();
                     $('#preloader').hide();
+                    $.each(jqXHR.responseJSON.errors, function(key, value) {
+                        $("#" + key).addClass('is-invalid');
+                        $("#" + key).next().html(value[0]);
+                    });
                     toastr.error('Error occurred!');
+                },
+                complete: function() {
+                    $('#client-basic-info-form').find(':input[type=submit]').prop('disabled', false);
                 }
             });
         }
 
     })
-
 
     function handleImageUpload(inputId, previewId, previewImgId) {
 
@@ -437,6 +501,14 @@
 
     $('#poster_potrait').click(function() {
         handleImageUpload('poster_potrait', 'poster-potrait-preview', 'preview-poster-potrait');
+    });
+
+    $('#banner_image').click(function() {
+        handleImageUpload('banner_image', 'banner-image-preview', 'preview-banner-image');
+    });
+
+    $('#banner_thumbnail').click(function() {
+        handleImageUpload('banner_thumbnail', 'banner-thumbnail-preview', 'preview-banner-thumbnail');
     });
 </script>
 
@@ -571,4 +643,33 @@
                 }
             });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Initially hide the fields
+        $(".banner_order, .banner_image, .banner_thumbnail").hide();
+
+        // Check if the checkbox is checked on page load
+        if ($("input[name='is_banner[]']").is(":checked")) {
+            showFields();
+        }
+
+        // Toggle the fields when the checkbox is clicked
+        $("input[name='is_banner[]']").on("change", function() {
+            if ($(this).is(":checked")) {
+                showFields();
+            } else {
+                hideFields();
+            }
+        });
+
+        function showFields() {
+            $(".banner_order, .banner_image, .banner_thumbnail").show();
+        }
+
+        function hideFields() {
+            $(".banner_order, .banner_image, .banner_thumbnail").hide();
+        }
+    });
 </script>

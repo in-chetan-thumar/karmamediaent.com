@@ -23,7 +23,7 @@ class MovieRequest extends FormRequest
      */
     public function rules()
     {
-        $routes = ['movie.edit','movie.update','webseries.edit','webseries.update'];
+        $routes = ['movie.edit', 'movie.update', 'webseries.edit', 'webseries.update'];
         //Store rules
         $rules = [
             'title' => 'required',
@@ -49,17 +49,39 @@ class MovieRequest extends FormRequest
             'status' => 'nullable',
             'is_recent' => 'nullable',
             'is_clickable' => 'nullable',
+            'is_banner' => 'nullable',
+
         ];
-        
-        if (in_array(request()->route()->getName(),$routes)) {
+
+        if (in_array(request()->route()->getName(), $routes)) {
             //Update rules
-            $rules['poster_landscape']='nullable|mimes:png,jpg,jpeg';
-            $rules['poster_potrait']='nullable|mimes:png,jpg,jpeg';
-        }else{
-            $rules['poster_landscape']='required|mimes:png,jpg,jpeg';
-            $rules['poster_potrait']='required|mimes:png,jpg,jpeg';
+            $rules['poster_landscape'] = 'nullable|mimes:png,jpg,jpeg';
+            $rules['poster_potrait'] = 'nullable|mimes:png,jpg,jpeg';
+            $rules['banner_image'] = 'nullable|mimes:png,jpg,jpeg';
+            $rules['banner_thumbnail'] = 'nullable|mimes:png,jpg,jpeg';
+            if (request()->input('is_banner')) {
+                if (is_null(request()->input('banner_image_file'))) {
+
+                    $rules['banner_image'] = 'required|mimes:png,jpg,jpeg';
+                    $rules['banner_thumbnail'] = 'required|mimes:png,jpg,jpeg';
+                }
+                $rules['banner_order'] = 'required|numeric';
+            } else {
+                $rules['banner_order'] = 'nullable|numeric';
+            }
+        } else {
+            $rules['poster_landscape'] = 'required|mimes:png,jpg,jpeg';
+            $rules['poster_potrait'] = 'required|mimes:png,jpg,jpeg';
+            if (request()->input('is_banner')) {
+                $rules['banner_image'] = 'required|mimes:png,jpg,jpeg';
+                $rules['banner_thumbnail'] = 'required|mimes:png,jpg,jpeg';
+                $rules['banner_order'] = 'required|numeric';
+            } else {
+                $rules['banner_image'] = 'nullable|mimes:png,jpg,jpeg';
+                $rules['banner_thumbnail'] = 'nullable|mimes:png,jpg,jpeg';
+                $rules['banner_order'] = 'nullable|numeric';
+            }
         }
         return $rules;
-
     }
 }

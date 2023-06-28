@@ -90,6 +90,10 @@ class MovieRepository
             $query->where('is_recent', $params['is_recent']);
         });
 
+        $this->model = $this->model->when(!empty($params['is_banner']), function ($query) use ($params) {
+            $query->where('is_banner', $params['is_banner'])->orderBy('banner_order','desc');
+        });
+
         $this->model = $this->model->when(!empty($params['release_date']), function ($query) use ($params) {
             $query->whereNotNull('release_date');
         });

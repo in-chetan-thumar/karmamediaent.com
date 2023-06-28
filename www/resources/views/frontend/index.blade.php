@@ -4,53 +4,26 @@
 @endsection
 
 @section('css')
-<style>
-    .img-fluid{
-        height: 120px !important ;
-        width: 120px !important ;
-    }
 
-    .watermark-container {
-    position: relative;
-    display: inline-block;
-}
-
-.watermark {
-    position: absolute;
-    top: 70%;
-    left: 15%;
-    transform: translate(-50%, -50%);
-    font-family: 'Oswald';
-    text-transform: uppercase;
-    font-size: 3vw; /* Responsive font size based on viewport width */
-    color: rgb(255, 255, 255);
-    pointer-events: none;
-    line-height: 1;
-}
-
-
-
-</style>
 @endsection
 @section('section')
     <!-- BEGIN .content-wrapper -->
     <div class="radiusdiv">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                @foreach ($movies as $data)
-                <div class="carousel-item @if ($movies->first() == $data) active @endif watermark-container" data-interval="300">
-                    <div class="watermark">{{ $data->title }} <br> {{ $data->release_date_formatted }} <br> <p style="font-size: 1vw ; text-transform:none">Directed by:{{ $data->directed_by }}</p></div>
+                @foreach ($banner_movies as $data)
+                <div class="carousel-item @if ($banner_movies->first() == $data) active @endif" data-interval="300">
                         <a
                             href="{{ $data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details', $data->slug) }}">
-                            <img src="/{{ $data->poster_landscape_url }}" alt="Banner Image">
+                            <img src="/{{ $data->banner_image_url }}" alt="Banner Image">
                         </a>
                     </div>
                 @endforeach
             </div>
             <div class="carousel-indicators">
-                @foreach ($movies as $key => $data)
-                    <div class="item active watermark-container" data-slide-to="{{ $key }}">
-                        <img src="/{{ $data->poster_potrait_url }}" class="img-fluid"
+                @foreach ($banner_movies as $key => $data)
+                    <div class="item active" data-slide-to="{{ $key }}">
+                        <img src="/{{ $data->banner_thumbnail_url }}" class="img-fluid"
                             data-target="#carouselExampleIndicators" data-slide-to="{{ $key }}" />
                     </div>
                 @endforeach
