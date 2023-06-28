@@ -106,6 +106,8 @@ class MovieRepository
             return $q->whereBetween('created_at', [$params['start_date'], $params['end_date']]);
         });
 
+        $this->model = $this->model->orderby('created_at','desc');
+
         if ($params['return_type'] == 'drop_down') {
             return $this->model->pluck('name', 'id');
 
