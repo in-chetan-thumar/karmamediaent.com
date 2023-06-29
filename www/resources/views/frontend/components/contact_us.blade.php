@@ -5,7 +5,7 @@
             <ul class="con">
                 <li>
                     <div class="heading">
-                        <h2>Contact Us</h2>
+                        <h2 style="margin-bottom: 0.35em !important">Contact Us</h2>
                     </div>
                     <div class="font14 mb-3">Approach, Interact, Evolve</div>
                     <div class="mumbai mb-3">
