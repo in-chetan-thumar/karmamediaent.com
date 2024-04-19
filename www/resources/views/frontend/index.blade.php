@@ -4,7 +4,6 @@
 @endsection
 
 @section('css')
-
 @endsection
 @section('section')
     <!-- BEGIN .content-wrapper -->
@@ -12,7 +11,7 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 @foreach ($banner_movies as $data)
-                <div class="carousel-item @if ($banner_movies->first() == $data) active @endif" data-interval="300">
+                    <div class="carousel-item @if ($banner_movies->first() == $data) active @endif" data-interval="300">
                         <a
                             href="{{ $data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details', $data->slug) }}">
                             <img src="/{{ $data->banner_image_url }}" alt="Banner Image">
@@ -28,8 +27,8 @@
                     </div>
                 @endforeach
             </div>
-            
-            
+
+
         </div>
         <div class="sliderimg"><img src="{{ asset('assets/frontend/images/slider-bg.png') }}" alt="" /></div>
     </div>
@@ -66,9 +65,41 @@
                                                         <li>
                                                             <a
                                                                 href="{{ $data->is_clickable == 'N' ? 'javascript:void(0)' : route('frontend.movie.details', $data->slug) }}">
-                                                                <div class="upcominfo">
+                                                                <div class="upcominfo ">
                                                                     <img src="/{{ $data->poster_potrait_url }}" />
                                                                     <h2>{{ $data->title }}</h2>
+                                                                    <ul class="upcominfo">
+                                                                        @if (!empty($data->directed_by))
+                                                                            <li>
+                                                                                <div>Directed By :</div>
+                                                                                <div
+                                                                                    class="text-light fs-15 font-weight-bold">
+                                                                                    {{ $data->directed_by }}</div>
+                                                                            </li>
+                                                                        @endif
+                                                                        @php
+                                                                            $string = $data->main_cast;
+
+                                                                            $parts = str_split($string, 1);
+                                                                            $title = implode(
+                                                                                '',
+                                                                                array_slice(
+                                                                                    $parts,
+                                                                                    0,
+                                                                                    strpos($string, ','),
+                                                                                ),
+                                                                            );
+                                                                        @endphp
+                                                                        @if (!empty($title))
+                                                                            <li>
+                                                                                <div>Main Cast:</div>
+                                                                                <div
+                                                                                    class="text-light fs-15 font-weight-bold">
+                                                                                    {{ $title }}
+                                                                                </div>
+                                                                            </li>
+                                                                        @endif
+                                                                    </ul>
                                                                     <p>Coming Soon</p>
                                                                 </div>
                                                             </a>
@@ -92,6 +123,38 @@
                                                                 <div class="upcominfo">
                                                                     <img src="/{{ $data->poster_potrait_url }}" />
                                                                     <h2>{{ $data->title }}</h2>
+                                                                    <ul class="upcominfo">
+                                                                        @if (!empty($data->directed_by))
+                                                                            <li>
+                                                                                <div>Directed By :</div>
+                                                                                <div
+                                                                                    class="text-light fs-15 font-weight-bold">
+                                                                                    {{ $data->directed_by }}</div>
+                                                                            </li>
+                                                                        @endif
+                                                                        @php
+                                                                            $string = $data->main_cast;
+
+                                                                            $parts = str_split($string, 1);
+                                                                            $title = implode(
+                                                                                '',
+                                                                                array_slice(
+                                                                                    $parts,
+                                                                                    0,
+                                                                                    strpos($string, ','),
+                                                                                ),
+                                                                            );
+                                                                        @endphp
+                                                                        @if (!empty($title))
+                                                                            <li>
+                                                                                <div>Main Cast:</div>
+                                                                                <div
+                                                                                    class="text-light fs-15 font-weight-bold">
+                                                                                    {{ $title }}
+                                                                                </div>
+                                                                            </li>
+                                                                        @endif
+                                                                    </ul>
                                                                     <p>Coming Soon</p>
                                                                 </div>
                                                             </a>
@@ -231,7 +294,7 @@
             var marker = new google.maps.Marker({
                 position: latlong,
                 map: map,
-                icon: "{{asset('assets/frontend/images/location-logo.png')}}"
+                icon: "{{ asset('assets/frontend/images/location-logo.png') }}"
             });
 
             google.maps.event.addListener(marker, 'click', function() {

@@ -28,7 +28,7 @@ class NewsController extends Controller
     public function create()
     {
         try {
-        $data = [];
+            $data = [];
             $data['error'] = false;
             $data['view'] = view('admin.news.offcanvas')->render();
             return response()->json($data);
@@ -100,7 +100,7 @@ class NewsController extends Controller
     public function edit(string $id)
     {
         try {
-        $data = [];
+            $data = [];
             $news = resolve('news-repo')->findByID($id);
 
             $data['error'] = false;
@@ -125,21 +125,22 @@ class NewsController extends Controller
             // Update news
             $params = $request->validated();
             if ($request->hasFile('photo')) {
-                
+
                 $fileDir = config('constants.NEWS_DOC_PATH');
-                
+
                 if (!File::exists($fileDir)) {
                     Storage::makeDirectory($fileDir, 0777);
                 }
                 $params['photo'] = basename($request->file('photo')->store($fileDir));
             }
+            // dd($params);
             if ($request->has('is_published')) {
                 $params['is_published'] = 'Y';
             } else {
                 $params['is_published'] = 'N';
             }
-            $news = resolve('news-repo')->update($params , $id);
-            
+            $news = resolve('news-repo')->update($params, $id);
+
             if ($news) {
                 $data['error'] = false;
                 $data['message'] = 'News updated successfully.';
@@ -198,14 +199,14 @@ class NewsController extends Controller
 
         if (request()->routeIs('news.index') || !isset($previousUrl['query'])) {
             $params['query_str'] = $request->query_str ?? '';
-            $params['page'] =  $request->page ?? 0;
-            $params['type'] =  $request->type ?? null;
-            $params['start_date'] =  $request->start_date ?? null;
-            $params['end_date'] =  $request->end_date ?? null;
+            $params['page'] = $request->page ?? 0;
+            $params['type'] = $request->type ?? null;
+            $params['start_date'] = $request->start_date ?? null;
+            $params['end_date'] = $request->end_date ?? null;
             $params['path'] = \Illuminate\Support\Facades\Request::fullUrl();
         } else {
             parse_str($previousUrl['query'], $params);
-            $params['path'] =  url()->previous();
+            $params['path'] = url()->previous();
         }
 
         /* if (!empty($params['start_date']) && !empty($params['end_date'])) {

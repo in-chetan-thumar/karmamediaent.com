@@ -26,7 +26,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsText('Title','title',isset($news) ? $news->title : old('title'),'',['class'=>'','id' => 'title'],[],true) }}
+                        {{ Form::bsText('Title', 'title', isset($news) ? $news->title : old('title'), '', ['class' => '', 'id' => 'title'], [], true) }}
                         @error('title')
                             <span style="color:red">
                                 <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsText('Slug','slug',isset($news) ? $news->slug : old('slug'),'',['class'=>'','id' => 'slug'],[],true) }}
+                        {{ Form::bsText('Slug', 'slug', isset($news) ? $news->slug : old('slug'), '', ['class' => '', 'id' => 'slug'], [], true) }}
                         @error('slug')
                             <span style="color:red">
                                 <strong>{{ $message }}</strong>
@@ -50,10 +50,10 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsFile('Photo','photo','','',['class'=>'','id' => 'image-input'],[],isset($news) ? false : true) }}
+                        {{ Form::bsFile('Photo', 'photo', '', '', ['class' => '', 'id' => 'image-input'], [], isset($news) ? false : true) }}
                         <div id="image-preview">
                             @if (isset($news))
-                                <img src="/{{$news->photo_url}}" alt="Preview" id="preview-image" class="mt-1">
+                                <img src="/{{ $news->photo_url }}" alt="Preview" id="preview-image" class="mt-1">
                             @endif
                         </div>
 
@@ -68,7 +68,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsText('Link','link',isset($news) ? $news->link : old('link'),'',['class'=>'','id' => 'link'],[],true) }}
+                        {{ Form::bsText('Link', 'link', isset($news) ? $news->link : old('link'), '', ['class' => '', 'id' => 'link'], [], true) }}
                         @error('link')
                             <span style="color:red">
                                 <strong>{{ $message }}</strong>
@@ -80,7 +80,7 @@
             <div class="col-6">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsSelect('Month','month',isset($news) ? $news->month : old('month'),'',['class'=>'','placeholder'=>'Select month'],config('constants.MONTH'),true) }}
+                        {{ Form::bsSelect('Month', 'month', isset($news) ? $news->month : old('month'), '', ['class' => '', 'placeholder' => 'Select month'], config('constants.MONTH'), true) }}
                         @error('month')
                             <span style="color:red">
                                 <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
             <div class="col-6">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsSelect('Year','year',isset($news) ? $news->year : old('year'),'',['class'=>'','placeholder'=>'Select year'],config('constants.YEARS'),true) }}
+                        {{ Form::bsSelect('Year', 'year', isset($news) ? $news->year : old('year'), '', ['class' => '', 'placeholder' => 'Select year'], config('constants.YEARS'), true) }}
                         @error('year')
                             <span style="color:red">
                                 <strong>{{ $message }}</strong>
@@ -104,9 +104,9 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="form-group">
-                        {{ Form::bsCheckBox('','is_published',isset($news) ? ( $news->is_published == 'Y' ? 1 : 0 ) : 0,'',['class'=>''],["1"=>'Published'],false) }}
+                        {{ Form::bsCheckBox('', 'is_published', isset($news) ? ($news->is_published == 'Y' ? 1 : 0) : 0, '', ['class' => ''], ['1' => 'Published'], false) }}
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
         <div class="row">
@@ -121,7 +121,7 @@
 <script>
     // Save OR UPDATE DATA
     $('#news-form').on('submit', function(e) {
-        
+
         e.preventDefault();
         var formData = new FormData($('#news-form')[0]);
         var url = $(this).attr('action');
@@ -179,7 +179,8 @@
             reader.addEventListener('load', function() {
                 const imageUrl = reader.result;
                 imagePreview.innerHTML = '';
-                imagePreview.innerHTML = `<img src="${imageUrl}" alt="Preview" id="preview-image" class="mt-1">`;
+                imagePreview.innerHTML =
+                    `<img src="${imageUrl}" alt="Preview" id="preview-image" class="mt-1">`;
             });
             reader.readAsDataURL(file);
         }
