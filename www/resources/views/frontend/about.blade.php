@@ -5,8 +5,7 @@
 
 @section('section')
     <!-- about big img div start -->
-    <div class="about_img"><img src="{{asset('assets/frontend/images/about_us.png')}}"
-            alt="" width="100%" /></div>
+    <div class="about_img"><img src="{{ asset('assets/frontend/images/about_us.png') }}" alt="" width="100%" /></div>
     <!-- about big img div end -->
 
     <!-- content div start -->
@@ -19,11 +18,17 @@
                             <div class="heading mb-4">
                                 <h2>About Us</h2>
                             </div>
-                            <p>Karma Media And Entertainment is one of India's leading production houses, established in the year 2017 by Mr. Aditya Arun Singh.</p>
+                            <p>Karma Media And Entertainment is one of India's leading production houses, established in the
+                                year 2017 by Shaailesh R Singh.</p>
 
-                            <p>Our filmography as a production house, includes commercially successful movies as well as films that are critically acclaimed both nationally and internationally. In a career spanning 5 years, We have received numerous accolades for backing path-breaking cinema, which includes movies like Jabariya Jodi, Judgemental Hai kya, Thalaivii and more.</p>
+                            <p>Our filmography as a production house, includes commercially successful movies as well as
+                                films that are critically acclaimed both nationally and internationally. In a career
+                                spanning 5 years, We have received numerous accolades for backing path-breaking cinema,
+                                which includes movies like Jabariya Jodi, Judgemental Hai kya, Thalaivii and more.</p>
 
-                            <p>Having spent more than Five years in producing movies and web-series across scales and genres, Karma Media And Entertainment has now etched its mark in the industry as a creator of different, real, and seamless cinematic experiences.</p>
+                            <p>Having spent more than Five years in producing movies and web-series across scales and
+                                genres, Karma Media And Entertainment has now etched its mark in the industry as a creator
+                                of different, real, and seamless cinematic experiences.</p>
 
                             <p>After setting and breaking the benchmarks in the Indian film industry with movies
                                 like Tanu

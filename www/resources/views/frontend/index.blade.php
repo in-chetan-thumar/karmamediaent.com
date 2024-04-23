@@ -68,10 +68,11 @@
                                                                 <div class="upcominfo ">
                                                                     <img src="/{{ $data->poster_potrait_url }}" />
                                                                     <h2>{{ $data->title }}</h2>
-                                                                    <ul class="upcominfo">
+                                                                    <p>Coming Soon.</p>
+                                                                    {{-- <ul class="upcominfo">
                                                                         @if (!empty($data->directed_by))
                                                                             <li>
-                                                                                <div>Directed By :</div>
+                                                                                <p class="m-0">Director </p>
                                                                                 <div
                                                                                     class="text-light fs-15 font-weight-bold">
                                                                                     {{ $data->directed_by }}</div>
@@ -92,15 +93,15 @@
                                                                         @endphp
                                                                         @if (!empty($title))
                                                                             <li>
-                                                                                <div>Main Cast:</div>
+                                                                                <p class="m-0">Starring </p>
                                                                                 <div
                                                                                     class="text-light fs-15 font-weight-bold">
                                                                                     {{ $title }}
                                                                                 </div>
                                                                             </li>
                                                                         @endif
-                                                                    </ul>
-                                                                    <p>Coming Soon</p>
+                                                                    </ul> --}}
+
                                                                 </div>
                                                             </a>
                                                         </li>
@@ -123,10 +124,11 @@
                                                                 <div class="upcominfo">
                                                                     <img src="/{{ $data->poster_potrait_url }}" />
                                                                     <h2>{{ $data->title }}</h2>
-                                                                    <ul class="upcominfo">
+                                                                    <p>Coming Soon.</p>
+                                                                    {{-- <ul class="upcominfo">
                                                                         @if (!empty($data->directed_by))
                                                                             <li>
-                                                                                <div>Directed By :</div>
+                                                                                <p class="m-0">Director </p>
                                                                                 <div
                                                                                     class="text-light fs-15 font-weight-bold">
                                                                                     {{ $data->directed_by }}</div>
@@ -147,15 +149,15 @@
                                                                         @endphp
                                                                         @if (!empty($title))
                                                                             <li>
-                                                                                <div>Main Cast:</div>
+                                                                                <p class="m-0">Starring </p>
                                                                                 <div
                                                                                     class="text-light fs-15 font-weight-bold">
                                                                                     {{ $title }}
                                                                                 </div>
                                                                             </li>
                                                                         @endif
-                                                                    </ul>
-                                                                    <p>Coming Soon</p>
+                                                                    </ul> --}}
+
                                                                 </div>
                                                             </a>
                                                         </li>
