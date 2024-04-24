@@ -19,7 +19,7 @@
                                 <h2>About Us</h2>
                             </div>
                             <p>Karma Media And Entertainment is one of India's leading production houses, established in the
-                                year 2017 by Shaailesh R Singh.</p>
+                                year 2017 by Mr. Aditya Arun Singh and Shaailesh R Singh.</p>
 
                             <p>Our filmography as a production house, includes commercially successful movies as well as
                                 films that are critically acclaimed both nationally and internationally. In a career
